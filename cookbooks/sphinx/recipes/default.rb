@@ -8,47 +8,47 @@
 #
 
 link "/etc/sphinx.conf" do
-  to "/data/#{app}/shared/config/sphinx.conf"
+  to "/data/rubyflow/shared/config/sphinx.conf"
 end
 
-directory "/var/log/engineyard/sphinx/#{app}/indexes" do 
-  owner node[:owner_name]
-  group node[:owner_name]
+directory "/var/log/engineyard/sphinx/rubyflow/indexes" do 
+  owner 'deploy'
+  group 'deploy'
   mode 0775
   recursive true
 end
 
 directory "/var/run/sphinx" do 
-  owner node[:owner_name]
-  group node[:owner_name]
+  owner 'deploy'
+  group 'deploy'
   mode 0775
   recursive true
 end
 
-directory "/data/#{app}/shared/config/thinkingsphinx" do 
-  owner node[:owner_name]
-  group node[:owner_name]
+directory "/data/rubyflow/shared/config/thinkingsphinx" do 
+  owner 'deploy'
+  group 'deploy'
   mode 0775
   recursive true
 end
 
-monitrc("sphinx", :app => app,
-                  :user => node[:owner_name])
+monitrc("sphinx", :app => rubyflow,
+                  :user => 'deploy')
                   
-template "/data/#{app}/shared/config/sphinx.yml" do
-  owner node[:owner_name]
-  group node[:owner_name]
+template "/data/rubyflow/shared/config/sphinx.yml" do
+  owner 'deploy'
+  group 'deploy'
   mode 0644
   source "sphinx.yml.erb"
   variables({
-    :env => node[:environment][:framework_env],
-    :app => app,
+    :env => 'production',
+    :app => 'rubyflow',
     :port => 3312
   })
 end
 
-execute "fix-permissions-sphinx-#{app}" do
+execute "fix-permissions-sphinx-rubyflow" do
   command %Q{
-    chown -R #{node[:owner_name]}:#{node[:owner_name]} /var/log/engineyard/sphinx /var/run/sphinx /data/#{app}/shared/config/thinkingsphinx /data/#{app}/shared/config/sphinx.yml
+    chown -R deploy:deploy /var/log/engineyard/sphinx /var/run/sphinx /data/rubyflow/shared/config/thinkingsphinx /data/rubyflow/shared/config/sphinx.yml
   }
 end
