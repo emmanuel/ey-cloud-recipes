@@ -1,0 +1,7 @@
+<%= @env %>:
+  searchd_log_file: /var/log/engineyard/sphinx/<%= @app %>/searchd.log
+  query_log_file: /var/log/engineyard/sphinx/<%= @app %>/query.log
+  pid_file: /var/run/sphinx/<%= @app %>.pid  
+  port: <%= @port %>
+  config_file: /data/<%= @app %>/current/config/thinkingsphinx/<%= @env %>.sphinx.conf
+  searchd_file_path: /var/log/engineyard/sphinx/<%= @app %>/indexes

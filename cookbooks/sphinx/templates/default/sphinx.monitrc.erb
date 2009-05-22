@@ -1,0 +1,5 @@
+check process sphinx_<%= @app %>_3312
+  with pidfile /var/run/sphinx/<%= @app %>.pid
+  start program = "/engineyard/bin/searchd <%= @app %> start" as uid <%= @user %> and gid <%= @user %>
+  stop program = "/engineyard/bin/searchd <%= @app %> stop" as uid <%= @user %> and gid <%= @user %>
+  group sphinx_<%= @app %>
