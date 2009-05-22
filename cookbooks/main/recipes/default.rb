@@ -13,4 +13,9 @@ end
 # uncomment to turn use the MBARI ruby patches for decreased memory usage and better thread/continuationi performance
 # require_recipe "mbari-ruby"
 
+# get snazzy
 require_recipe "snazzy"
+
+# get sphinx
+require_recipe "sphinx"
+
