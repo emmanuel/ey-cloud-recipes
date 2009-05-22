@@ -32,7 +32,7 @@ directory "/data/rubyflow/shared/config/thinkingsphinx" do
   recursive true
 end
 
-monitrc("sphinx", :app => rubyflow,
+monitrc("sphinx", :app => 'rubyflow',
                   :user => 'deploy')
                   
 template "/data/rubyflow/shared/config/sphinx.yml" do
