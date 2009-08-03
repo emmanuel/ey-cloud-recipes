@@ -1,54 +1,62 @@
+require 'pp'
 #
-# Cookbook Name:: sphinx
+# Cookbook Name:: thinking_sphinx
 # Recipe:: default
 #
-# Copyright 2009, Engine Yard, Inc.
-#
-# All rights reserved - Do Not Redistribute
-#
+#if_app_needs_recipe("thinking_sphinx") do |app,data,index|
 
-link "/etc/sphinx.conf" do
-  to "/data/rubyflow/shared/config/sphinx.conf"
-end
+node[:applications].each do |app_name,data|
+#  next unless app == 'climate_culture_app'
+  user = node[:users].first
 
-directory "/var/log/engineyard/sphinx/rubyflow/indexes" do 
-  owner 'deploy'
-  group 'deploy'
-  mode 0775
-  recursive true
-end
+  directory "/var/run/sphinx" do
+    owner node[:owner_name]
+    group node[:owner_name]
+    mode 0755
+  end
 
-directory "/var/run/sphinx" do 
-  owner 'deploy'
-  group 'deploy'
-  mode 0775
-  recursive true
-end
+  directory "/var/log/engineyard/sphinx/#{app}" do
+    recursive true
+    owner node[:owner_name]
+    group node[:owner_name]
+    mode 0755
+  end
+  
+  remote_file "/etc/logrotate.d/sphinx" do
+    owner "root"
+    group "root"
+    mode 0755
+    source "sphinx.logrotate"
+    action :create
+  end
 
-directory "/data/rubyflow/shared/config/thinkingsphinx" do 
-  owner 'deploy'
-  group 'deploy'
-  mode 0775
-  recursive true
-end
+  template "/etc/monit.d/sphinx.#{app}.monitrc" do
+      source "sphinx.monitrc.erb"
+      owner node[:owner_name]
+      group node[:owner_name]
+      mode 0644
+      variables({
+        :app_name => app_name
+      })
+  end
 
-# monitrc("sphinx", :app => 'rubyflow',
-#                   :user => 'deploy')
-                  
-template "/data/rubyflow/shared/config/sphinx.yml" do
-  owner 'deploy'
-  group 'deploy'
-  mode 0644
-  source "sphinx.yml.erb"
-  variables({
-    :env => node[:environment][:framework_env],
-    :app => 'rubyflow',
-    :port => 3312
-  })
-end
+  template "/data/#{app}/shared/config/sphinx.yml" do
+    owner node[:owner_name]
+    group node[:owner_name]
+    mode 0644
+    source "sphinx.yml.erb"
+    variables({
+      :app_name => app_name
+      :user => user
+    })
+  end
+  
+  link "/data/#{app_name}/current/config/sphinx.yml" do
+    to "/data/#{app_name}/shared/config/sphinx.yml"
+  end
 
-execute "fix-permissions-sphinx-rubyflow" do
-  command %Q{
-    chown -R deploy:deploy /var/log/engineyard/sphinx /var/run/sphinx /data/rubyflow/shared/config/thinkingsphinx /data/rubyflow/shared/config/sphinx.yml
-  }
+  link "/data/#{app_name}/current/config/thinkingsphinx" do
+    to "/data/#{app_name}/shared/config/thinkingsphinx"
+  end
+
 end
