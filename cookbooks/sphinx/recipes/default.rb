@@ -34,7 +34,8 @@ run_for_app("ThinkingAboutSphinx") do |app_name, data|
       group node[:owner_name]
       mode 0644
       variables({
-        :app_name => app_name
+        :app => app_name,
+        :user => node[:owner_name]
       })
   end
 
