@@ -19,6 +19,14 @@ run_for_app("ThinkingAboutSphinx") do |app_name, data|
     group node[:owner_name]
     mode 0755
   end
+
+  directory "/data/#{app_name}/shared/config/thinkingsphinx" do
+    recursive true
+    owner node[:owner_name]
+    group node[:owner_name]
+    mode 0755
+  end
+
   
   remote_file "/etc/logrotate.d/sphinx" do
     owner "root"
