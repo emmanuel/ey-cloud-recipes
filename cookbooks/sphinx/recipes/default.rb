@@ -44,7 +44,7 @@ run_for_app("ThinkingAboutSphinx").each do |app_name, data|
     mode 0644
     source "sphinx.yml.erb"
     variables({
-      :app_name => app_name,
+      :app => app_name,
       :user => node[:owner_name]
     })
   end
