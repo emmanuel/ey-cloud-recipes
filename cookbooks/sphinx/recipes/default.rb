@@ -15,7 +15,7 @@ node[:applications].each do |app_name,data|
     mode 0755
   end
 
-  directory "/var/log/engineyard/sphinx/#{app}" do
+  directory "/var/log/engineyard/sphinx/#{app_name}" do
     recursive true
     owner node[:owner_name]
     group node[:owner_name]
@@ -30,7 +30,7 @@ node[:applications].each do |app_name,data|
     action :create
   end
 
-  template "/etc/monit.d/sphinx.#{app}.monitrc" do
+  template "/etc/monit.d/sphinx.#{app_name}.monitrc" do
       source "sphinx.monitrc.erb"
       owner node[:owner_name]
       group node[:owner_name]
@@ -40,7 +40,7 @@ node[:applications].each do |app_name,data|
       })
   end
 
-  template "/data/#{app}/shared/config/sphinx.yml" do
+  template "/data/#{app_name}/shared/config/sphinx.yml" do
     owner node[:owner_name]
     group node[:owner_name]
     mode 0644
