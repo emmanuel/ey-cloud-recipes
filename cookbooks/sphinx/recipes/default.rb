@@ -41,7 +41,7 @@ template "/data/rubyflow/shared/config/sphinx.yml" do
   mode 0644
   source "sphinx.yml.erb"
   variables({
-    :env => 'production',
+    :env => node[:environment][:framework_env],
     :app => 'rubyflow',
     :port => 3312
   })
