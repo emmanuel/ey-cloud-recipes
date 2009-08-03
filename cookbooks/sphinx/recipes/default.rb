@@ -5,9 +5,7 @@ require 'pp'
 #
 #if_app_needs_recipe("thinking_sphinx") do |app,data,index|
 
-node[:applications].each do |app_name,data|
-#  next unless app == 'climate_culture_app'
-  user = node[:users].first
+run_for_app("ThinkingAboutSphinx").each do |app_name, data|
 
   directory "/var/run/sphinx" do
     owner node[:owner_name]
@@ -47,7 +45,7 @@ node[:applications].each do |app_name,data|
     source "sphinx.yml.erb"
     variables({
       :app_name => app_name,
-      :user => user
+      :user => node[:owner_name]
     })
   end
   
