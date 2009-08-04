@@ -5,7 +5,7 @@ require 'pp'
 #
 #if_app_needs_recipe("thinking_sphinx") do |app,data,index|
 
-run_for_app("ThinkingAboutSphinx") do |app_name, data|
+run_for_app("rede") do |app_name, data|
 
   directory "/var/run/sphinx" do
     owner node[:owner_name]
@@ -65,5 +65,7 @@ run_for_app("ThinkingAboutSphinx") do |app_name, data|
   link "/data/#{app_name}/current/config/thinkingsphinx" do
     to "/data/#{app_name}/shared/config/thinkingsphinx"
   end
+  
+  
 
 end
