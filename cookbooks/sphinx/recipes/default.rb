@@ -5,10 +5,9 @@ require 'pp'
 #
 #if_app_needs_recipe("thinking_sphinx") do |app,data,index|
 
-
 if ['solo', 'app', 'app_master'].include?(node[:instance_role])
 
-  run_for_app("ThinkingAboutSphinx") do |app_name, data|
+  run_for_app("rede") do |app_name, data|
   
     directory "/var/run/sphinx" do
       owner node[:owner_name]
@@ -63,4 +62,5 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
   
   end
   
+
 end
