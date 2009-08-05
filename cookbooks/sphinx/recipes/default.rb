@@ -31,13 +31,14 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     end
 
     template "/etc/monit.d/sphinx.#{app_name}.monitrc" do
-        source "sphinx.monitrc.erb"
-        owner node[:owner_name]
-        group node[:owner_name]
-        mode 0644
-        variables({
-          :app_name => app_name
-        })
+      source "sphinx.monitrc.erb"
+      owner node[:owner_name]
+      group node[:owner_name]
+      mode 0644
+      variables({
+        :app_name => app_name,
+        :user => node[:owner_name]
+      })
     end
 
     template "/data/#{app_name}/shared/config/sphinx.yml" do
