@@ -48,7 +48,7 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
       mode 0644
       source "sphinx.yml.erb"
       variables({
-        :app_name => app_name
+        :app_name => app_name,
         :user => user
       })
     end
