@@ -9,8 +9,6 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
 
   run_for_app("rede") do |app_name, data|
   
-    user = node[:users].first
-
     directory "/var/run/sphinx" do
       owner node[:owner_name]
       group node[:owner_name]
@@ -49,7 +47,7 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
       source "sphinx.yml.erb"
       variables({
         :app_name => app_name,
-        :user => user
+        :user => node[:owner_name]
       })
     end
 
