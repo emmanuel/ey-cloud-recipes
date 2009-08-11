@@ -52,6 +52,10 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
       })
     end
 
+    only_if "ls /data/#{app_name}/current/config/sphinx.yml" do
+      run "mv /data/#{app_name}/current/config/sphinx.yml /data/#{app_name}/current/config/sphinx.yml.dev"
+    end
+    
     link "/data/#{app_name}/current/config/sphinx.yml" do
       to "/data/#{app_name}/shared/config/sphinx.yml"
     end
