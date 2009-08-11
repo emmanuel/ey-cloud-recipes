@@ -51,14 +51,6 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
         :user => node[:owner_name]
       })
     end
-    
-    link "/data/#{app_name}/current/config/sphinx.yml" do
-      to "/data/#{app_name}/shared/config/sphinx.yml"
-    end
-
-    link "/data/#{app_name}/current/config/thinkingsphinx" do
-      to "/data/#{app_name}/shared/config/thinkingsphinx"
-    end
   
   end
   
