@@ -27,7 +27,7 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     action :create
   end
 
-  template "/data/#{node[:environment][:name]}/current/config/delayed_job.yml" do
+  template "/data/#{node[:environment][:name]}/shared/config/delayed_job.yml" do
     source "delayed_job.yml.erb"
     owner node[:owner_name]
     group node[:owner_name]
