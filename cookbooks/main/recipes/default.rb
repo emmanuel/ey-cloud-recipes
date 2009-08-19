@@ -10,6 +10,8 @@ end
 # uncomment to turn use the MBARI ruby patches for decreased memory usage and better thread/continuationi performance
 # require_recipe "mbari-ruby"
 
-# get sphinx
+# configure sphinx
 require_recipe "sphinx"
 
+# configure delayed_job
+require_recipe "delayed_job"
