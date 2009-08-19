@@ -39,7 +39,14 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     })
   end
 
-  template "/data/#{node[:environment][:name]}/current/config/sphinx.yml" do
+  directory "/data/#{node[:environment][:name]}/shared/config" do
+    recursive true
+    owner node[:owner_name]
+    group node[:owner_name]
+    mode 0755
+  end
+
+  template "/data/#{node[:environment][:name]}/shared/config/sphinx.yml" do
     owner node[:owner_name]
     group node[:owner_name]
     mode 0644
