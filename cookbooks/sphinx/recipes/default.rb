@@ -39,7 +39,7 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     })
   end
 
-  template "/data/#{node[:environment][:name]}/current/config/#{node[:environment][:framework_env]}.sphinx.yml" do
+  template "/data/#{node[:environment][:name]}/current/config/sphinx.yml" do
     owner node[:owner_name]
     group node[:owner_name]
     mode 0644
