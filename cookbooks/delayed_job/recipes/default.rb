@@ -5,6 +5,7 @@
 
 # run DelayedJob worker on app instances
 if ['solo', 'app', 'app_master'].include?(node[:instance_role])
+  app_name = node[:applications].keys.first
 
   directory "/var/run/delayed_job" do
     owner node[:owner_name]
@@ -38,13 +39,13 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     })
   end
 
-  template "/etc/monit.d/delayed_job.#{app_name}.monitrc" do
+  template "/etc/monit.d/delayed_job.#{node[:environment][:name]}.monitrc" do
     source "delayed_job.monitrc.erb"
     owner node[:owner_name]
     group node[:owner_name]
     mode 0644
     variables({
-      :app_name => app_name,
+      :app_name => node[:environment][:name],
       :user => node[:owner_name]
     })
   end

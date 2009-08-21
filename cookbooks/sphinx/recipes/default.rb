@@ -4,6 +4,7 @@
 #
 # Run sphinx searchd on app instances
 if ['solo', 'app', 'app_master'].include?(node[:instance_role])
+  app_name = node[:applications].keys.first
 
   directory "/var/run/sphinx" do
     owner node[:owner_name]
