@@ -41,8 +41,8 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
 
   template "/etc/monit.d/delayed_job.#{app_name}.monitrc" do
     source "delayed_job.monitrc.erb"
-    owner node[:owner_name]
-    group node[:owner_name]
+    owner "root"
+    group "root"
     mode 0644
     variables({
       :app_name => app_name,
