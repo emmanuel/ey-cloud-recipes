@@ -43,7 +43,7 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     })
   end
 
-  template "/etc/monit.d/#{worker_name}.monitrc" do
+  template "/etc/monit.d/delayed_job_worker_#{app_name}.monitrc" do
     source "delayed_job_worker.monitrc.erb"
     owner "root"
     group "root"
