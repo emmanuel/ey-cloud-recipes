@@ -6,13 +6,15 @@
 if ['solo', 'app', 'app_master'].include?(node[:instance_role])
   app_name = node[:applications].keys.first
 
+  # for pid file
   directory "/var/run/sphinx" do
     owner node[:owner_name]
     group node[:owner_name]
     mode 0755
   end
 
-  directory "/var/log/engineyard/sphinx/#{app_name}" do
+  # for indexes
+  directory "/var/cache/sphinx/indexes/#{app_name}" do
     recursive true
     owner node[:owner_name]
     group node[:owner_name]
