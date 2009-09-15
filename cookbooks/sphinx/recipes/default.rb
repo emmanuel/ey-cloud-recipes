@@ -21,6 +21,21 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     mode 0755
   end
 
+  directory "/var/log/engineyard/sphinx/#{app_name}" do
+    recursive true
+    owner node[:owner_name]
+    group node[:owner_name]
+    mode 0755
+  end
+
+  bash "link-searchd-log-to-var-log" do
+    code "ln -nfs /data/#{app_name}/shared/log/searchd.log /var/log/engineyard/sphinx/#{app_name}/searchd.log"
+  end
+
+  bash "link-query-log-to-var-log" do
+    code "ln -nfs /data/#{app_name}/shared/log/query.log /var/log/engineyard/sphinx/#{app_name}/query.log"
+  end
+
   remote_file "/etc/logrotate.d/sphinx" do
     owner "root"
     group "root"
