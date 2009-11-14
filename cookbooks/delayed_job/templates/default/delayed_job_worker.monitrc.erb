@@ -1,0 +1,5 @@
+check process <%= @worker_name %>
+  with pidfile /var/run/delayed_job/<%= @worker_name %>.pid
+  start program = "/data/<%= @app_name %>/current/script/delayed_job -e <%= @rails_env %> start" as uid <%= @user %> and gid <%= @user %>
+  stop program = "/data/<%= @app_name %>/current/script/delayed_job -e <%= @rails_env %> stop" as uid <%= @user %> and gid <%= @user %>
+  group <%= @app_name %>
