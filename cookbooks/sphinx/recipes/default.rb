@@ -4,7 +4,7 @@ require 'pp'
 # Recipe:: default
 #
 #if_app_needs_recipe("thinking_sphinx") do |app,data,index|
-
+app_name = "NavigatingCancer"
 if ['solo', 'app', 'app_master'].include?(node[:instance_role])
 
   directory "/var/run/sphinx" do
@@ -13,7 +13,7 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     mode 0755
   end
 
-  directory "/var/log/engineyard/sphinx/#{node[:environment][:name]}" do
+  directory "/var/log/engineyard/sphinx/#{app_name}" do
     recursive true
     owner node[:owner_name]
     group node[:owner_name]
@@ -28,31 +28,31 @@ if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     action :create
   end
 
-  template "/etc/monit.d/sphinx.#{node[:environment][:name]}.monitrc" do
+  template "/etc/monit.d/sphinx.#{app_name}.monitrc" do
     source "sphinx.monitrc.erb"
     owner node[:owner_name]
     group node[:owner_name]
     mode 0644
     variables({
-      :app_name => node[:environment][:name],
+      :app_name => app_name,
       :user => node[:owner_name]
     })
   end
 
-  directory "/data/#{node[:environment][:name]}/shared/config" do
+  directory "/data/#{app_name}/shared/config" do
     recursive true
     owner node[:owner_name]
     group node[:owner_name]
     mode 0755
   end
 
-  template "/data/#{node[:environment][:name]}/shared/config/sphinx.yml" do
+  template "/data/#{app_name}/shared/config/sphinx.yml" do
     owner node[:owner_name]
     group node[:owner_name]
     mode 0644
     source "sphinx.yml.erb"
     variables({
-      :app_name => node[:environment][:name],
+      :app_name => app_name,
       :user => node[:owner_name]
     })
   end
