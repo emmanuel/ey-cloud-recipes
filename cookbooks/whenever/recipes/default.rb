@@ -6,7 +6,7 @@
 if ['solo', 'app', 'app_master'].include?(node[:instance_role])
   app_name = "NavigatingCancer"
 
-  template "/data/#{app_name}/current/config/schedule.rb" do
+  template "/data/#{app_name}/shared/schedule.rb" do
     source "schedule.rb.erb"
     owner "navi"
     group "navi"
