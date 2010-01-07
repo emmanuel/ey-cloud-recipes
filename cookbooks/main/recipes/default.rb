@@ -11,7 +11,7 @@ end
 # require_recipe "mbari-ruby"
 
 # configure sphinx
-require_recipe "sphinx"
+# require_recipe "sphinx"
 
 # configure delayed_job
 require_recipe "delayed_job"
