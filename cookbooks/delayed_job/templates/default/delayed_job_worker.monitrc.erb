@@ -1,5 +1,5 @@
 check process <%= @worker_name %>
   with pidfile /data/<%= @app_name %>/shared/pids/<%= @worker_name %>.pid
-  start program = "/bin/su -c '/data/<%= @app_name %>/current/script/delayed_job -e <%= @rails_env %> start' - <%= @user %>"
-  stop program =  "/bin/su -c '/data/<%= @app_name %>/current/script/delayed_job -e <%= @rails_env %> stop'  - <%= @user %>"
+  start program = "/bin/su -c 'RAILS_ENV=<%= @rails_env %> /data/<%= @app_name %>/current/script/delayed_job start' - <%= @user %>"
+  stop program =  "/bin/su -c 'RAILS_ENV=<%= @rails_env %> /data/<%= @app_name %>/current/script/delayed_job stop'  - <%= @user %>"
   group <%= @app_name %>
